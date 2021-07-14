@@ -1,29 +1,30 @@
-import React, { useState } from 'react'
+import React, { Fragment } from 'react'
 import TodoList from './TodoList'
 
-const Form = () => {
-    const [todos, setTodos] = useState([])
-    const [inputText, setinputText] = useState("")
-
-    const handleChange = (e) => {
-        setinputText(e.target.value)
-        console.log(inputText)
+const Form = ({ input, setInput, todos, setTodos }) => {
+    const handleInputChange = (event) => {
+        setInput(event.target.value)
     }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setTodos([...todos, { id: Math.random() * 100, title: inputText, completed: false }])
-        setinputText("")
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        setTodos([...todos, { id: Math.random() * 100, title: input, completed: false }])
+        setInput("")
     }
-
     return (
-        <form >
-            <input type="text" placeholder="add todo" value={inputText} onChange={handleChange} />
-            <input type="submit" value="Add" onClick={handleSubmit} />
-            {/* <TodoList title={todos.title} setTodos={setTodos} /> */}
+        <Fragment>
+            <form onSubmit={handleSubmit}>
+                <input type="text" placeholder="input todo" value={input} onChange={handleInputChange} />
+                <button type="submit">Add</button>
+            </form>
+            <TodoList
+                input={input}
+                setInput={setInput}
+                todos={todos}
+                setTodos={setTodos}
+            />
+        </Fragment>
 
-            <TodoList todos={todos} setTodos={setTodos} />
-        </form>
+
     )
 }
 

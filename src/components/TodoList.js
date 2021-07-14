@@ -1,12 +1,19 @@
 import React from 'react'
-import Todo from './Todo'
+import TodoItem from './TodoItem'
 
-const TodoList = ({todos, setTodos}) => {
-    //const inputText = inputText
+const TodoList = ({ todos, setTodos }) => {
+
     return (
         <div>
-            {todos.map(obj => (
-                <Todo key={obj.id} obj={obj} todos={todos} setTodos={setTodos}/>))}
+            {todos.map(el => (
+                <li key={el.id}>
+                    <TodoItem
+                        todo={el}
+                        todos={todos}
+                        setTodos={setTodos}
+                    />
+                </li>
+            ))}
         </div>
     )
 }
